@@ -1,16 +1,16 @@
-<ion-content >
+<ion-content>
     <ion-item>
         <ion-label position="floating">username</ion-label>
-        <ion-input></ion-input>
-    </ion-item >
+        <ion-input name="username" [(ngModel)]="username"></ion-input>
+    </ion-item>
     <ion-item>
         <ion-label position="floating">password</ion-label>
-        <ion-input type="password"></ion-input>
+        <ion-input type="password" name="password" [(ngModel)]="password"></ion-input>
     </ion-item>
-    <ion-button (click)="login()" expand="block" color="dark" fill="outline">
+    <ion-button (click)="login()" expand="block" color="primary">
         login
     </ion-button>
-    <ion-button expand="block" color="dark" fill="outline"  routerLink="/register" routerDirection="forward">
+    <ion-button expand="block" color="secondary" routerLink="/register" routerDirection="forward">
         register
     </ion-button>
 </ion-content>

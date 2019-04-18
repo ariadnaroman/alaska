@@ -7,13 +7,15 @@ import {AuthenticationService} from "../../services/authentication.service";
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  username: string = "";
+  password: string = "";
 
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
   }
 
-  login() {
-    this.authService.login();
+  async login() {
+    await this.authService.login(this.username, this.password);
   }
 }

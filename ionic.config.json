@@ -1,5 +1,7 @@
 {
   "name": "alaska",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
