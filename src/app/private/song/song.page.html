@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/private/dashboard']" routerDirection="root">
+        <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>{{artist}}</ion-card-subtitle>
+      <ion-card-title>{{title}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button>
+              <ion-icon name="heart"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button>
+              <ion-icon name="play"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button>
+              <ion-icon name="pause"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-list>
+    <ion-item *ngFor="let rec of recommendations" (click)="goTo(rec)">
+      <ion-label color="primary">{{rec.artist}}</ion-label><ion-label color="danger">{{rec.title}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

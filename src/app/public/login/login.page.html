@@ -1,4 +1,5 @@
 <ion-content>
+    <ion-img src="assets/alaska.png"></ion-img>
     <ion-item>
         <ion-label position="floating">username</ion-label>
         <ion-input name="username" [(ngModel)]="username"></ion-input>
@@ -10,7 +11,7 @@
     <ion-button (click)="login()" expand="block" color="primary">
         login
     </ion-button>
-    <ion-button expand="block" color="secondary" routerLink="/register" routerDirection="forward">
+    <ion-button expand="block" color="danger" routerLink="/register" routerDirection="forward">
         register
     </ion-button>
 </ion-content>

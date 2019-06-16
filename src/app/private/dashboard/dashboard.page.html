@@ -5,8 +5,24 @@
                 <ion-icon slot="icon-only" name="log-out"></ion-icon>
             </ion-button>
         </ion-buttons>
+        <ion-searchbar searchIcon="search" animated debounce="500" showCancelButton
+                       cancelButtonText="Custom Cancel" (ionCancel)="clear()" (ionChange)="search()"
+                       (ionClear)="clear()" [(ngModel)]="searchText"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+    <ion-list>
+        <ion-item *ngFor="let song of songs" [routerLink]="['/private/song/'+ song._id]" routerDirection="forward">
+            <ion-label color="primary">{{song.artist}}</ion-label><ion-label color="danger">{{song.title}}</ion-label>
+        </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="Loading more songs...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
