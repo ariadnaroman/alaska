@@ -34,7 +34,6 @@
     "process-exists": "^3.1.0",
     "rxjs": "^6.5.0",
     "rxjs-compat": "^6.5.2",
-    "spotify-web-helper": "^1.14.0",
     "tslib": "^1.10.0",
     "tslint": "^5.0.0",
     "zone.js": "~0.8.29"
