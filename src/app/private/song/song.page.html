@@ -39,7 +39,7 @@
   </ion-card>
   <ion-list>
     <ion-item *ngFor="let rec of recommendations" (click)="goTo(rec)">
-      <ion-label color="primary">{{rec.artist}}</ion-label><ion-label color="danger">{{rec.title}}</ion-label>
+      <ion-label color="primary">{{rec.artist_name}}</ion-label><ion-label color="danger">{{rec.track_name}}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

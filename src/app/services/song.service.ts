@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Storage} from "@ionic/storage";
+import {Storage} from '@ionic/storage';
 
 const axios = require('axios');
 
@@ -58,7 +58,7 @@ export class SongService {
             'Authorization': token
         };
         try {
-            return await axios.get(`http://localhost:3000/api/song?title=${song.title}&artist=${song.artist}`, {headers});
+            return await axios.get(`http://localhost:3000/api/song?title=${song.track_name}&artist=${song.artist_name}`, {headers});
         } catch (e) {
             console.log(e);
             return [];

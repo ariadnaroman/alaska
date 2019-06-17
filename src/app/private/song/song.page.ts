@@ -20,14 +20,13 @@ export class SongPage implements OnInit {
     async ngOnInit() {
         this.id = this.activatedRoute.snapshot.paramMap.get('id');
         let response = await this.songService.getRecommendations(this.id);
-        this.artist = response.data.song.artist;
-        this.title = response.data.song.title;
-        this.recommendations = response.data.recommendations.filter(elem => elem.title !== this.title);
+        this.artist = response.data.song.artist_name;
+        this.title = response.data.song.track_name;
+        this.recommendations = response.data.recommendations;
     }
 
     async goTo(song) {
-        let response = await this.songService.getId(song);
-        await this.router.navigate(['private/song/' + response.data.song._id]);
+        await this.router.navigate(['private/song/' + song.track_id]);
     }
 
 

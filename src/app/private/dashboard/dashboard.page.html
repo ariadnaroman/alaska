@@ -14,8 +14,8 @@
 <ion-content>
 
     <ion-list>
-        <ion-item *ngFor="let song of songs" [routerLink]="['/private/song/'+ song._id]" routerDirection="forward">
-            <ion-label color="primary">{{song.artist}}</ion-label><ion-label color="danger">{{song.title}}</ion-label>
+        <ion-item *ngFor="let song of songs" [routerLink]="['/private/song/'+ song.track_id]" routerDirection="forward">
+            <ion-label color="primary">{{song.artist_name}}</ion-label><ion-label color="danger">{{song.track_name}}</ion-label>
         </ion-item>
     </ion-list>
 

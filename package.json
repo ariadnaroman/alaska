@@ -25,26 +25,28 @@
     "@ionic-native/status-bar": "^5.5.1",
     "@ionic/angular": "^4.3.1",
     "@ionic/storage": "^2.2.0",
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "cordova-spotify": "0.5.8",
     "core-js": "^2.5.4",
     "particles.js": "^2.0.0",
     "rxjs": "~6.3.3",
+    "rxjs-compat": "^6.5.2",
+    "tslib": "^1.10.0",
     "zone.js": "~0.8.29"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.12.3",
-    "@angular-devkit/build-angular": "~0.13.0",
+    "@angular-devkit/build-angular": "^0.13.0",
     "@angular-devkit/core": "~7.2.3",
     "@angular-devkit/schematics": "~7.2.3",
-    "@angular/cli": "^7.3.8",
+    "@angular/cli": "^7.3.0",
     "@angular/compiler": "^7.2.14",
     "@angular/compiler-cli": "^7.2.14",
     "@angular/language-service": "^7.2.14",
     "@ionic/angular-toolkit": "~1.4.0",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "^10.14.6",
+    "@types/node": "^10.14.9",
     "codelyzer": "~4.5.0",
     "crypto": "^1.0.1",
     "jasmine-core": "~2.99.1",
@@ -55,14 +57,19 @@
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.4.0",
-    "ts-node": "~8.0.0",
-    "tslint": "~5.12.0",
     "typescript": "~3.1.6"
   },
   "description": "An Ionic project",
-  "cordova": {
-    "plugins": {
-      "cordova-spotify": {}
-    }
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false,
+    "crypto": false,
+    "stream": false,
+    "http": false,
+    "tls": false,
+    "zlib": false,
+    "https": false,
+    "net": false
   }
 }
