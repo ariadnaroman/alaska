@@ -19,7 +19,7 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-button>
+            <ion-button (click)="addToPlaylist()" [disabled]="isFavourite">
               <ion-icon name="heart"></ion-icon>
             </ion-button>
           </ion-col>

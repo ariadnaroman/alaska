@@ -4,6 +4,7 @@ import {Storage} from '@ionic/storage';
 const axios = require('axios');
 
 const TOKEN_KEY = 'auth-token';
+const USER = 'user';
 
 @Injectable({
     providedIn: 'root'
@@ -63,5 +64,22 @@ export class SongService {
             console.log(e);
             return [];
         }
+    }
+
+    async addSongToCurrentUsersPlaylist(song: any) {
+        const token = await this.storage.get(TOKEN_KEY);
+        const user = await this.storage.get(USER);
+        const headers = {
+            'Authorization': token
+        };
+        await axios.post(`http://localhost:3000/api/song/${user.username}/playlist`, {song}, {headers});
+        user.songs.push(song);
+        await this.storage.set(USER, user);
+    }
+
+
+    async isSongFavouriteForCurrentUser(id) {
+        const user = await this.storage.get(USER);
+        return !!user.songs.find(s => s.track_id === id);
     }
 }

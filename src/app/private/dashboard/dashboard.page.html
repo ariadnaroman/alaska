@@ -1,21 +1,36 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-button (click)="logout()">
-                <ion-icon slot="icon-only" name="log-out"></ion-icon>
+            <ion-button (click)="openFirst()">
+                <ion-icon name="menu"></ion-icon>
             </ion-button>
         </ion-buttons>
         <ion-searchbar searchIcon="search" animated debounce="500" showCancelButton
                        cancelButtonText="Custom Cancel" (ionCancel)="clear()" (ionChange)="search()"
-                       (ionClear)="clear()" [(ngModel)]="searchText"></ion-searchbar>
+                       (ionClear)="clear()" [(ngModel)]="searchText">
+        </ion-searchbar>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-menu side="start" menuId="first">
+        <ion-header>
+            <ion-toolbar color="primary">
+                <ion-title>{{username}}</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ion-list>
+                <ion-item [routerLink]="['/private/favourites']" routerDirection="forward">Favourites</ion-item>
+                <ion-item (click)="logout()">Log out</ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
     <ion-list>
         <ion-item *ngFor="let song of songs" [routerLink]="['/private/song/'+ song.track_id]" routerDirection="forward">
-            <ion-label color="primary">{{song.artist_name}}</ion-label><ion-label color="danger">{{song.track_name}}</ion-label>
+            <ion-label color="primary">{{song.artist_name}}</ion-label>
+            <ion-label color="danger">{{song.track_name}}</ion-label>
         </ion-item>
     </ion-list>
 

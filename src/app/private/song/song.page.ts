@@ -12,6 +12,8 @@ export class SongPage implements OnInit {
     artist: string = "";
     title: string = "";
 
+    isFavourite: boolean = false;
+
     recommendations = [];
 
     constructor(private router: Router, private activatedRoute: ActivatedRoute, private songService: SongService) {
@@ -23,11 +25,20 @@ export class SongPage implements OnInit {
         this.artist = response.data.song.artist_name;
         this.title = response.data.song.track_name;
         this.recommendations = response.data.recommendations;
+
+        this.isFavourite = await this.songService.isSongFavouriteForCurrentUser(this.id);
     }
 
     async goTo(song) {
         await this.router.navigate(['private/song/' + song.track_id]);
     }
 
-
+    async addToPlaylist() {
+        await this.songService.addSongToCurrentUsersPlaylist({
+            track_id: this.id,
+            artist_name: this.artist,
+            track_name: this.title
+        });
+        this.isFavourite = true;
+    }
 }

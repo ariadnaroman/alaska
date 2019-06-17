@@ -1,6 +1,7 @@
 import {AuthenticationService} from "../../services/authentication.service";
 import {Component, OnInit} from '@angular/core';
 import {SongService} from "../../services/song.service";
+import {MenuController} from "@ionic/angular";
 
 @Component({
     selector: 'app-dashboard',
@@ -12,13 +13,23 @@ export class DashboardPage implements OnInit {
     page: number = 1;
     more: boolean = true;
     searchText: string  = "";
+    username: string = "";
+
     constructor(private authService: AuthenticationService,
-                private songService: SongService) {
+                private songService: SongService,
+                private menu: MenuController) {
+        console.log(this.authService);
+        this.authService.getAuthenticatedUser().then(user => this.username = user.username);
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.songs = [];
         this.getSongs(this.page);
+    }
+
+    async openFirst() {
+        await this.menu.enable(true, 'first');
+        await this.menu.open('first');
     }
 
     getSongs(page: number) {
@@ -61,6 +72,9 @@ export class DashboardPage implements OnInit {
         });
     }
 
+    showFavorites() {
+
+    }
 
     logout() {
         this.authService.logout();

@@ -4,7 +4,9 @@ import {RouterModule, Routes} from "@angular/router";
 
 const routes: Routes = [
     {path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardPageModule'},
-    {path: 'song/:id', loadChildren: './song/song.module#SongPageModule'}
+    {path: 'song/:id', loadChildren: './song/song.module#SongPageModule'},
+    {path: 'favourites', loadChildren: './favourites/favourites.module#FavouritesPageModule'}
+
 
 ];
 

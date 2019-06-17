@@ -7,6 +7,7 @@ const axios = require('axios');
 
 
 const TOKEN_KEY = 'auth-token';
+const USER = 'user';
 
 @Injectable({
     providedIn: 'root'
@@ -28,10 +29,15 @@ export class AuthenticationService {
         });
     }
 
+    getAuthenticatedUser() {
+        return this.storage.get(USER);
+    }
+
     async login(username: string, password: string) {
         const response = await axios.post("http://localhost:3000/api/auth/login", {
             username, password
         });
+        await this.storage.set(USER, response.data.user);
         return this.storage.set(TOKEN_KEY, `Bearer ${response.data.token}`).then(() => {
             this.authenticationState.next(true);
         });
@@ -43,6 +49,7 @@ export class AuthenticationService {
         const response = await axios.post("http://localhost:3000/api/auth/signup", {
             username, password: encryptedPassword, salt
         });
+        await this.storage.set(USER, response.data.user);
         return this.storage.set(TOKEN_KEY, `Bearer ${response.token}`).then(() => {
             this.authenticationState.next(true);
         });
