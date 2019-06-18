@@ -33,6 +33,10 @@ export class SongPage implements OnInit {
         await this.router.navigate(['private/song/' + song.track_id]);
     }
 
+    goToSpotify() {
+        window.open(`https://open.spotify.com/track/${this.id}`, '_system', 'location=yes');
+    }
+
     async addToPlaylist() {
         await this.songService.addSongToCurrentUsersPlaylist({
             track_id: this.id,
