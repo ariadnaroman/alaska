@@ -13,6 +13,7 @@
   </div>
 
   <div class="content">
+    <h2>Songs you might like</h2>
     <ion-list lines="none">
       <ion-item *ngFor="let rec of recommendations" (click)="goTo(rec)">
         <app-song-view [song]="rec"></app-song-view>
