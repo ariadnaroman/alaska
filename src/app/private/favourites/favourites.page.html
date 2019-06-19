@@ -1,18 +1,19 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button [routerLink]="['/private/dashboard']" routerDirection="root">
-        <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-button fill="clear" class="back-btn" (click)="navCtrl.pop()">
+      <i-feather name="chevron-left"></i-feather>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let song of songs" [routerLink]="['/private/song/'+ song.track_id]" routerDirection="forward">
-    <ion-card-header>
-      <ion-card-subtitle>{{song.artist_name}}</ion-card-subtitle>
-      <ion-card-title>{{song.track_name}}</ion-card-title>
-    </ion-card-header>
-  </ion-card>
+  <div class="content">
+    <h1>
+      My Favourites <i-feather name="heart" class="heart-icon"></i-feather>
+    </h1>
+
+    <ng-container *ngFor="let song of songs">
+      <app-song-view [song]="song"></app-song-view>
+    </ng-container>
+  </div>
 </ion-content>

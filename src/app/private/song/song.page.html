@@ -1,45 +1,41 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button [routerLink]="['/private/dashboard']" routerDirection="root">
-        <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-button fill="clear" class="back-btn" (click)="navCtrl.pop()">
+      <i-feather name="chevron-left"></i-feather>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-subtitle>{{artist}}</ion-card-subtitle>
-      <ion-card-title>{{title}}</ion-card-title>
-    </ion-card-header>
+  <div class="title">
+    <h1>{{ title }}</h1>
+    <h2>{{ artist }}</h2>
+  </div>
 
-    <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-button (click)="addToPlaylist()" [disabled]="isFavourite">
-              <ion-icon name="heart"></ion-icon>
-            </ion-button>
-          </ion-col>
-          <ion-col>
-            <ion-button (click)="goToSpotify()">
-              <ion-icon name="play"></ion-icon>
-            </ion-button>
-          </ion-col>
-          <ion-col>
-            <ion-button>
-              <ion-icon name="pause"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
-  <ion-list>
-    <ion-item *ngFor="let rec of recommendations" (click)="goTo(rec)">
-      <ion-label color="primary">{{rec.artist_name}}</ion-label><ion-label color="danger">{{rec.track_name}}</ion-label>
-    </ion-item>
-  </ion-list>
+  <div class="content">
+    <ion-list lines="none">
+      <ion-item *ngFor="let rec of recommendations" (click)="goTo(rec)">
+        <app-song-view [song]="rec"></app-song-view>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>
+
+<ion-footer no-border>
+  <ion-toolbar>
+    <div class="bottom-buttons">
+      <ion-button fill="clear" class="play-button" (click)="goToSpotify()">
+        <i-feather name="play-circle"></i-feather>
+        <span>Play on Spotify</span>
+      </ion-button>
+      <ion-button
+        fill="clear"
+        class="fauvorite-button"
+        (click)="addToPlaylist()"
+        [disabled]="isFavourite"
+      >
+        <i-feather name="heart"></i-feather>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

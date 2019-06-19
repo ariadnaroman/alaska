@@ -1,43 +1,84 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-button (click)="openFirst()">
-                <ion-icon name="menu"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-        <ion-searchbar searchIcon="search" animated debounce="500" showCancelButton
-                       cancelButtonText="Custom Cancel" (ionCancel)="clear()" (ionChange)="search()"
-                       (ionClear)="clear()" [(ngModel)]="searchText">
-        </ion-searchbar>
-    </ion-toolbar>
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- <ion-button (click)="openFirst()">
+        <i-feather name="menu"></i-feather>
+      </ion-button> -->
+      <ion-menu-toggle menu="first" auto-hide="false">
+        <i-feather name="menu"></i-feather>
+      </ion-menu-toggle>
+    </ion-buttons>
+
+    <ion-label>
+      <h1>Browse</h1>
+    </ion-label>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleSearch()">
+        <i-feather name="search"></i-feather>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
+<ion-menu side="start" menuId="first">
+  <ion-header mode="ios">
+    <div class="header-menu">
+      <ion-menu-toggle menu="first" auto-hide="false">
+        <i-feather name="x"></i-feather>
+      </ion-menu-toggle>
+      <ion-title>
+        <h2>{{ username }}</h2>
+      </ion-title>
+    </div>
+  </ion-header>
+  <ion-content>
+    <ion-list lines="none" class="list-menu">
+      <ion-item
+        [routerLink]="['/private/favourites']"
+        routerDirection="forward"
+      >
+        <i-feather name="heart"></i-feather>
+        <span>Favourites</span>
+      </ion-item>
+      <ion-item (click)="logout()">
+        <i-feather name="log-out"></i-feather>
+        <span>Log out</span>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
 <ion-content>
-    <ion-menu side="start" menuId="first">
-        <ion-header>
-            <ion-toolbar color="primary">
-                <ion-title>{{username}}</ion-title>
-            </ion-toolbar>
-        </ion-header>
-        <ion-content>
-            <ion-list>
-                <ion-item [routerLink]="['/private/favourites']" routerDirection="forward">Favourites</ion-item>
-                <ion-item (click)="logout()">Log out</ion-item>
-            </ion-list>
-        </ion-content>
-    </ion-menu>
-    <ion-router-outlet main></ion-router-outlet>
+  <ion-router-outlet main></ion-router-outlet>
+
+  <div class="content">
+    <ion-searchbar
+      *ngIf="isSearchOpen"
+      searchIcon="search"
+      animated
+      debounce="500"
+      showCancelButton
+      cancelButtonText="Custom Cancel"
+      (ionCancel)="clear()"
+      (ionChange)="search()"
+      (ionClear)="clear()"
+      [(ngModel)]="searchText"
+    >
+    </ion-searchbar>
+
     <ion-list>
-        <ion-item *ngFor="let song of songs" [routerLink]="['/private/song/'+ song.track_id]" routerDirection="forward">
-            <ion-label color="primary">{{song.artist_name}}</ion-label>
-            <ion-label color="danger">{{song.track_name}}</ion-label>
-        </ion-item>
+      <ng-container *ngFor="let song of songs">
+        <app-song-view [song]="song"></app-song-view>
+      </ng-container>
     </ion-list>
 
     <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-        <ion-infinite-scroll-content
-                loadingSpinner="bubbles"
-                loadingText="Loading more songs...">
-        </ion-infinite-scroll-content>
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more songs..."
+      >
+      </ion-infinite-scroll-content>
     </ion-infinite-scroll>
+  </div>
 </ion-content>

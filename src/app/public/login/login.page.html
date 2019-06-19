@@ -1,17 +1,51 @@
 <ion-content>
-    <ion-img src="assets/alaska.png"></ion-img>
+  <ion-img src="assets/bg_login.png"></ion-img>
+  <div class="content">
     <ion-item>
-        <ion-label position="floating">username</ion-label>
-        <ion-input name="username" [(ngModel)]="username"></ion-input>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input name="username" [(ngModel)]="username"></ion-input>
     </ion-item>
     <ion-item>
-        <ion-label position="floating">password</ion-label>
-        <ion-input type="password" name="password" [(ngModel)]="password"></ion-input>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+      ></ion-input>
     </ion-item>
-    <ion-button (click)="login()" expand="block" color="primary">
-        login
-    </ion-button>
-    <ion-button expand="block" color="danger" routerLink="/register" routerDirection="forward">
-        register
-    </ion-button>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h2>Sign In</h2>
+        </ion-col>
+        <ion-col>
+          <ion-fab horizontal="end" (click)="login()">
+            <ion-fab-button>
+              <i-feather name="arrow-right"></i-feather>
+            </ion-fab-button>
+          </ion-fab>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-margin-top">
+        <ion-col class="ion-padding-top">
+          <div class="ion-text-center">
+            <a
+              class="register-link"
+              routerLink="/register"
+              routerDirection="forward"
+              >CREATE YOUR ACCOUNT</a
+            >
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <!--    <ion-button (click)="login()" expand="block" color="primary">-->
+  <!--        login-->
+  <!--    </ion-button>-->
+  <!--    <ion-button expand="block" color="danger" routerLink="/register" routerDirection="forward">-->
+  <!--        register-->
+  <!--    </ion-button>-->
 </ion-content>

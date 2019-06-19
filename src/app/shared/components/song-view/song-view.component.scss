@@ -1,0 +1,20 @@
+.song-item {
+  --padding-bottom: 0.5em;
+}
+
+.song-view {
+  display: flex;
+  flex-direction: column;
+
+  .song-name {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  .song-artist {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 14px;
+  }
+}

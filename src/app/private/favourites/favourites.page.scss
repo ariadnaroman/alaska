@@ -1,0 +1,26 @@
+ion-header {
+  ion-toolbar {
+    --background: white;
+    --border-color: transparent;
+    padding: 1em 1.5em 1em 1em !important;
+  }
+}
+
+.back-btn {
+  border-radius: 100px;
+  color: black;
+}
+
+.content {
+  padding: 0 2em;
+}
+
+i-feather.heart-icon {
+  fill: #de2d3e;
+  color: #de2d3e;
+  margin-left: 0.5em;
+}
+
+h1 {
+  margin-bottom: 1.5em;
+}

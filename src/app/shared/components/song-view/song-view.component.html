@@ -1,0 +1,17 @@
+<ion-item
+  [routerLink]="['/private/song/' + song.track_id]"
+  routerDirection="forward"
+  lines="none"
+  no-padding
+  no-margin
+  class="song-item"
+>
+  <div class="song-view">
+    <ion-label>
+      <span class="song-name">{{ song.track_name }}</span>
+    </ion-label>
+    <ion-label>
+      <span class="song-artist">{{ song.artist_name }}</span>
+    </ion-label>
+  </div>
+</ion-item>
