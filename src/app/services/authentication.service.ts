@@ -33,23 +33,31 @@ export class AuthenticationService {
     }
 
     async login(username: string, password: string) {
-        const response = await axios.post("http://localhost:3000/api/auth/login", {
-            username, password
-        });
-        await this.storage.set(USER, response.data.user);
-        return this.storage.set(TOKEN_KEY, `Bearer ${response.data.token}`).then(() => {
-            this.authenticationState.next(true);
-        });
+        try {
+            const response = await axios.post("http://localhost:3000/api/auth/login", {
+                username, password
+            });
+            await this.storage.set(USER, response.data.user);
+            return this.storage.set(TOKEN_KEY, `Bearer ${response.data.token}`).then(() => {
+                this.authenticationState.next(true);
+            });
+        } catch (e) {
+            throw e;
+        }
     }
 
     async register(username: string, password: string) {
-        const response = await axios.post("http://localhost:3000/api/auth/signup", {
-            username, password
-        });
-        await this.storage.set(USER, response.data.user);
-        return this.storage.set(TOKEN_KEY, `Bearer ${response.data.token}`).then(() => {
-            this.authenticationState.next(true);
-        });
+        try {
+            const response = await axios.post("http://localhost:3000/api/auth/signup", {
+                username, password
+            });
+            await this.storage.set(USER, response.data.user);
+            return this.storage.set(TOKEN_KEY, `Bearer ${response.data.token}`).then(() => {
+                this.authenticationState.next(true);
+            });
+        } catch (e) {
+            throw e;
+        }
     }
 
     logout() {

@@ -1,21 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from "../../services/authentication.service";
+import {isValidPassword, isValidUsername} from "../../shared/utils/utils";
+import {ToastController} from "@ionic/angular";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+    selector: 'app-login',
+    templateUrl: './login.page.html',
+    styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  username: string = "";
-  password: string = "";
+    username: string = "";
+    password: string = "";
 
-  constructor(private authService: AuthenticationService) { }
+    constructor(private authService: AuthenticationService, public toastController: ToastController) {
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  async login() {
-    await this.authService.login(this.username, this.password);
-  }
+    async login() {
+        try {
+            await this.authService.login(this.username, this.password);
+        } catch (e) {
+            if (e.response && e.response.data && e.response.data.issue && e.response.data.issue.length > 0) {
+                const toast = await this.toastController.create({
+                    message: e.response.data.issue[0].error,
+                    duration: 3000
+                });
+                toast.present();
+                this.username = "";
+                this.password = "";
+            } else if (e.message) {
+                const toast = await this.toastController.create({
+                    message: e.message,
+                    duration: 3000
+                });
+                toast.present();
+                this.username = "";
+                this.password = "";
+            }
+        }
+    }
 }
