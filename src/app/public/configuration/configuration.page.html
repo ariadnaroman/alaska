@@ -1,0 +1,41 @@
+<ion-content>
+  <ion-button fill="clear" class="back-btn" (click)="navCtrl.pop()">
+    <i-feather name="chevron-left"></i-feather>
+  </ion-button>
+  <ion-img src="assets/bg_settings.png"></ion-img>
+  <div class="content">
+    <ion-item>
+      <ion-label position="floating">IP</ion-label>
+      <ion-input name="ip" [(ngModel)]="ip"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">port</ion-label>
+      <ion-input
+              name="port"
+              [(ngModel)]="port"
+      ></ion-input>
+    </ion-item>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h2>Save</h2>
+        </ion-col>
+        <ion-col>
+          <ion-fab horizontal="end" (click)="save()">
+            <ion-fab-button>
+              <i-feather name="arrow-right"></i-feather>
+            </ion-fab-button>
+          </ion-fab>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </div>
+  <!--    <ion-button (click)="login()" expand="block" color="primary">-->
+  <!--        login-->
+  <!--    </ion-button>-->
+  <!--    <ion-button expand="block" color="danger" routerLink="/register" routerDirection="forward">-->
+  <!--        register-->
+  <!--    </ion-button>-->
+</ion-content>

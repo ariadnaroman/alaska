@@ -10,7 +10,8 @@ const routes: Routes = [
         path: 'private',
         canActivate: [AuthGuard],
         loadChildren: './private/private-routing.module#PrivateRoutingModule'
-    }
+    },
+    {path: 'configuration', loadChildren: './public/configuration/configuration.module#ConfigurationPageModule'}
 ];
 
 @NgModule({

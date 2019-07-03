@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Storage} from '@ionic/storage';
+import {serverHost} from "../../environments/environment";
 
 const axios = require('axios');
 
@@ -10,8 +11,13 @@ const USER = 'user';
     providedIn: 'root'
 })
 export class SongService {
+    serverIP: string = null;
 
     constructor(private storage: Storage) {
+    }
+
+    setServerIP(serverIP: string) {
+        this.serverIP = serverIP;
     }
 
     async getSongs(page: number = 1) {
@@ -20,7 +26,7 @@ export class SongService {
             'Authorization': token
         };
         try {
-            return await axios.get(`http://localhost:3000/api/song?page=${page}`, {headers});
+            return await axios.get(`${this.getServerHost()}/api/song?page=${page}`, {headers});
         } catch (e) {
             console.log(e);
             return [];
@@ -33,7 +39,7 @@ export class SongService {
             'Authorization': token
         };
         try {
-            return await axios.get(`http://localhost:3000/api/song?contains=${text}&page=${page}`, {headers});
+            return await axios.get(`${this.getServerHost()}/api/song?contains=${text}&page=${page}`, {headers});
         } catch (e) {
             console.log(e);
             return [];
@@ -46,7 +52,7 @@ export class SongService {
             'Authorization': token
         };
         try {
-            return await axios.get(`http://localhost:3000/api/song/${id}/recommendations`, {headers});
+            return await axios.get(`${this.getServerHost()}/api/song/${id}/recommendations`, {headers});
         } catch (e) {
             console.log(e);
             return [];
@@ -59,7 +65,7 @@ export class SongService {
             'Authorization': token
         };
         try {
-            return await axios.get(`http://localhost:3000/api/song?title=${song.track_name}&artist=${song.artist_name}`, {headers});
+            return await axios.get(`${this.getServerHost()}/api/song?title=${song.track_name}&artist=${song.artist_name}`, {headers});
         } catch (e) {
             console.log(e);
             return [];
@@ -72,7 +78,7 @@ export class SongService {
         const headers = {
             'Authorization': token
         };
-        await axios.post(`http://localhost:3000/api/song/${user.username}/playlist`, {song}, {headers});
+        await axios.post(`${this.getServerHost()}/api/song/${user.username}/playlist`, {song}, {headers});
         user.songs.push(song);
         await this.storage.set(USER, user);
     }
@@ -81,5 +87,9 @@ export class SongService {
     async isSongFavouriteForCurrentUser(id) {
         const user = await this.storage.get(USER);
         return !!user.songs.find(s => s.track_id === id);
+    }
+
+    private getServerHost() {
+        return this.serverIP ? this.serverIP : serverHost;
     }
 }

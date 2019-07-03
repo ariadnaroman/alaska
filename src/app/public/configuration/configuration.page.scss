@@ -1,0 +1,24 @@
+ion-content {
+  .content {
+    padding: 0 3em;
+
+    ion-item {
+      --background: transparent;
+    }
+
+    ion-grid {
+      padding: 1em 0;
+      ion-fab-button {
+        --background: linear-gradient(57.57deg, #de2d3e 7.69%, #fee33f 93.52%);
+      }
+    }
+  }
+}
+
+.back-btn {
+  position: absolute;
+  top: 1.5em;
+  left: 1.5em;
+  border-radius: 100px;
+  color: white;
+}

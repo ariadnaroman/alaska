@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from "../../services/authentication.service";
-import {isValidPassword, isValidUsername} from "../../shared/utils/utils";
-import {ToastController} from "@ionic/angular";
+import {NavController, ToastController} from "@ionic/angular";
 
 @Component({
     selector: 'app-login',
@@ -12,7 +11,8 @@ export class LoginPage implements OnInit {
     username: string = "";
     password: string = "";
 
-    constructor(private authService: AuthenticationService, public toastController: ToastController) {
+    constructor(private authService: AuthenticationService, public toastController: ToastController,
+                public navCtrl: NavController) {
     }
 
     ngOnInit() {
@@ -21,6 +21,8 @@ export class LoginPage implements OnInit {
     async login() {
         try {
             await this.authService.login(this.username, this.password);
+            this.username = "";
+            this.password = "";
         } catch (e) {
             if (e.response && e.response.data && e.response.data.issue && e.response.data.issue.length > 0) {
                 const toast = await this.toastController.create({

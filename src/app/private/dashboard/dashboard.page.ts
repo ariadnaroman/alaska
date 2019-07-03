@@ -1,91 +1,91 @@
-import { AuthenticationService } from '../../services/authentication.service';
-import { Component, OnInit } from '@angular/core';
-import { SongService } from '../../services/song.service';
-import { MenuController } from '@ionic/angular';
+import {AuthenticationService} from '../../services/authentication.service';
+import {Component, OnInit} from '@angular/core';
+import {SongService} from '../../services/song.service';
+import {MenuController} from '@ionic/angular';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.page.html',
-  styleUrls: ['./dashboard.page.scss']
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.page.html',
+    styleUrls: ['./dashboard.page.scss']
 })
 export class DashboardPage implements OnInit {
-  songs: any[] = [];
-  page: number = 1;
-  more: boolean = true;
-  isSearchOpen: boolean = false;
-  searchText: string = '';
-  username: string = '';
+    songs: any[] = [];
+    page: number = 1;
+    more: boolean = true;
+    isSearchOpen: boolean = false;
+    searchText: string = '';
+    username: string = '';
 
-  constructor(
-    private authService: AuthenticationService,
-    private songService: SongService,
-    private menu: MenuController
-  ) {
-    console.log(this.authService);
-    this.authService
-      .getAuthenticatedUser()
-      .then(user => (this.username = user.username));
-  }
+    constructor(
+        private authService: AuthenticationService,
+        private songService: SongService,
+        private menu: MenuController
+    ) {
 
-  async ngOnInit() {
-    this.songs = [];
-    this.getSongs(this.page);
-  }
+    }
 
-  async openFirst() {
-    await this.menu.enable(true, 'first');
-    await this.menu.open('first');
-  }
+    async ngOnInit() {
+        this.songs = [];
+        await this.getSongs(this.page);
+    }
 
-  toggleSearch() {
-    this.isSearchOpen = !this.isSearchOpen;
-  }
+    ionViewWillEnter() {
+        this.authService.getAuthenticatedUser().then(user => this.username = user.username);
+    }
 
-  getSongs(page: number) {
-    this.songService.getSongs(page).then(response => {
-      this.songs.push(...response.data.songs);
-      this.more = response.data.more;
-    });
-  }
+    async openFirst() {
 
-  loadData(event) {
-    this.page = this.page + 1;
-    setTimeout(() => {
-      if (this.searchText !== '') this.searchNext();
-      else this.getSongs(this.page);
-      event.target.complete();
+        await this.menu.enable(true, 'first');
+        await this.menu.open('first');
+    }
 
-      if (!this.more) {
-        event.target.disabled = true;
-      }
-    }, 1000);
-  }
+    toggleSearch() {
+        this.isSearchOpen = !this.isSearchOpen;
+    }
 
-  clear() {
-    this.songs = [];
-    this.getSongs(1);
-  }
+    getSongs(page: number) {
+        this.songService.getSongs(page).then(response => {
+            this.songs.push(...response.data.songs);
+            this.more = response.data.more;
+        });
+    }
 
-  search() {
-    this.songService.getSongsByText(this.searchText).then(response => {
-      this.songs = response.data.songs;
-      this.more = response.data.more;
-      this.page = 1;
-    });
-  }
+    loadData(event) {
+        this.page = this.page + 1;
+        setTimeout(() => {
+            if (this.searchText !== '') this.searchNext();
+            else this.getSongs(this.page);
+            event.target.complete();
 
-  searchNext() {
-    this.songService
-      .getSongsByText(this.searchText, this.page)
-      .then(response => {
-        this.songs.push(...response.data.songs);
-        this.more = response.data.more;
-      });
-  }
+            if (!this.more) {
+                event.target.disabled = true;
+            }
+        }, 1000);
+    }
 
-  showFavorites() {}
+    clear() {
+        this.songs = [];
+        this.getSongs(1);
+    }
 
-  logout() {
-    this.authService.logout();
-  }
+    search() {
+        this.songService.getSongsByText(this.searchText).then(response => {
+            this.songs = response.data.songs;
+            this.more = response.data.more;
+            this.page = 1;
+        });
+    }
+
+    searchNext() {
+        this.songService
+            .getSongsByText(this.searchText, this.page)
+            .then(response => {
+                this.songs.push(...response.data.songs);
+                this.more = response.data.more;
+            });
+    }
+
+    logout() {
+        this.authService.logout();
+    }
 }

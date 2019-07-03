@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs/index";
 import {Storage} from "@ionic/storage";
 import {Platform} from "@ionic/angular";
+import {serverHost} from "../../environments/environment";
 const axios = require('axios');
 
 
@@ -13,11 +14,16 @@ const USER = 'user';
 })
 export class AuthenticationService {
     authenticationState = new BehaviorSubject(false);
+    serverIP = null;
 
     constructor(private storage: Storage, private plt: Platform) {
         this.plt.ready().then(() => {
             this.checkToken();
         });
+    }
+
+    setServerIP(serverIP: string) {
+        this.serverIP = serverIP;
     }
 
     checkToken() {
@@ -34,7 +40,7 @@ export class AuthenticationService {
 
     async login(username: string, password: string) {
         try {
-            const response = await axios.post("http://localhost:3000/api/auth/login", {
+            const response = await axios.post(`${this.getServerHost()}/api/auth/login`, {
                 username, password
             });
             await this.storage.set(USER, response.data.user);
@@ -48,7 +54,7 @@ export class AuthenticationService {
 
     async register(username: string, password: string) {
         try {
-            const response = await axios.post("http://localhost:3000/api/auth/signup", {
+            const response = await axios.post(`${this.getServerHost()}/api/auth/signup`, {
                 username, password
             });
             await this.storage.set(USER, response.data.user);
@@ -58,6 +64,10 @@ export class AuthenticationService {
         } catch (e) {
             throw e;
         }
+    }
+
+    private getServerHost() {
+        return this.serverIP ? this.serverIP : serverHost;
     }
 
     logout() {
