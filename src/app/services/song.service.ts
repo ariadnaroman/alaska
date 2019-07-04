@@ -78,8 +78,19 @@ export class SongService {
         const headers = {
             'Authorization': token
         };
-        await axios.post(`${this.getServerHost()}/api/song/${user.username}/playlist`, {song}, {headers});
+        await axios.post(`${this.getServerHost()}/api/song/${user.username}/playlist`, {songToAdd: song}, {headers});
         user.songs.push(song);
+        await this.storage.set(USER, user);
+    }
+
+    async deleteSongFromCurrentUsersPlaylist(song: any) {
+        const token = await this.storage.get(TOKEN_KEY);
+        const user = await this.storage.get(USER);
+        const headers = {
+            'Authorization': token
+        };
+        await axios.post(`${this.getServerHost()}/api/song/${user.username}/playlist`, {songToDelete: song}, {headers});
+        user.songs = user.songs.filter(s => s.track_id !== song.track_id);
         await this.storage.set(USER, user);
     }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SongService } from '../../services/song.service';
-import { NavController } from '@ionic/angular';
+import {NavController, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-song',
@@ -21,7 +21,8 @@ export class SongPage implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private songService: SongService,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    private toastController: ToastController
   ) {}
 
   async ngOnInit() {
@@ -48,12 +49,33 @@ export class SongPage implements OnInit {
     );
   }
 
-  async addToPlaylist() {
-    await this.songService.addSongToCurrentUsersPlaylist({
-      track_id: this.id,
-      artist_name: this.artist,
-      track_name: this.title
-    });
-    this.isFavourite = true;
+  async toggleForAddingOrRemovingSongInPlaylist() {
+    if (!this.isFavourite) {
+      await this.songService.addSongToCurrentUsersPlaylist({
+        track_id: this.id,
+        artist_name: this.artist,
+        track_name: this.title
+      });
+      this.isFavourite = true;
+      const toast = await this.toastController.create({
+        message: 'Song added in playlist!',
+        duration: 1000,
+        color: "light"
+      });
+      toast.present();
+    } else {
+      await this.songService.deleteSongFromCurrentUsersPlaylist({
+        track_id: this.id,
+        artist_name: this.artist,
+        track_name: this.title
+      });
+      this.isFavourite = false;
+      const toast = await this.toastController.create({
+        message: 'Song removed from playlist!',
+        duration: 1000,
+        color: "light"
+      });
+      toast.present();
+    }
   }
 }

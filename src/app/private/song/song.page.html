@@ -32,10 +32,10 @@
       <ion-button
         fill="clear"
         class="fauvorite-button"
-        (click)="addToPlaylist()"
-        [disabled]="isFavourite"
+        (click)="toggleForAddingOrRemovingSongInPlaylist()"
       >
-        <i-feather name="heart"></i-feather>
+        <i-feather *ngIf="!isFavourite" name="heart"></i-feather>
+        <ion-icon *ngIf="isFavourite" name="heart" size="large"></ion-icon>
       </ion-button>
     </div>
   </ion-toolbar>
