@@ -47,7 +47,15 @@ export class DashboardPage implements OnInit {
         this.songService.getSongs(page).then(response => {
             this.songs.push(...response.data.songs);
             this.more = response.data.more;
+            console.log(this.songs, "SONGS");
+            console.log(this.songs.length, "SIZE")
         });
+    }
+
+    scrollev() {
+        this.page = this.page + 1;
+        if (this.searchText !== '') this.searchNext();
+        else this.getSongs(this.page);
     }
 
     loadData(event) {

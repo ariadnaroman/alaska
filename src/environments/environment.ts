@@ -6,7 +6,7 @@ export const environment = {
   production: false
 };
 
-export const serverHost = 'http://192.168.43.216:3000';
+export const serverHost = 'http://localhost:3000';
 
 /*
  * For easier debugging in development mode, you can import the following file
